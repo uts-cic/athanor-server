@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.HttpResponse
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.ExceptionHandler
-import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
+import au.edu.utscic.athanorserver.message.Exception.UnknownAnalysisType
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport
 import org.json4s._
 
@@ -18,6 +18,8 @@ import org.json4s._
   *
   */
 trait GenericApi extends Json4sSupport {
+
+  import au.edu.utscic.athanorserver.StreamsContext._
 
   val version = "v2"
   val details:String = "no details yet" // ApiInfo(Config.name,Config.description,Config.version,Config.colour)

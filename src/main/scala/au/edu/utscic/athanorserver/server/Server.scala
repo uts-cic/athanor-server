@@ -1,5 +1,7 @@
 package au.edu.utscic.athanorserver.server
 
+import akka.http.scaladsl.Http
+
 
 /** The akka-http server
   *
@@ -13,6 +15,8 @@ package au.edu.utscic.athanorserver.server
   *
   */
 object Server extends AthanorApi {
+
+  import au.edu.utscic.athanorserver.StreamsContext._
 
   def startServer(address:String, port:Int) = {
     log.info("Starting http server at {}:{}",address,port)

@@ -1,1 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
+/src/main/resources/application.conf
+/.idea/
+/src/main/scala/au/edu/utscic/athanorserver/zz_experiments.sc

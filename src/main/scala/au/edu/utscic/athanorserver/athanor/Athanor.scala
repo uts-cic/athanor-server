@@ -1,7 +1,7 @@
 package au.edu.utscic.athanorserver.athanor
 
 import au.edu.utscic.athanorserver.data.RhetoricalTypes.{ConstituentTree, Dependencies, LexicalNodes, ParsedSentence}
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 import com.xerox.jatanor.JAtanor
 import org.json4s.JsonAST.JValue
 import org.json4s.jackson.JsonMethods.parse
@@ -17,19 +17,19 @@ import scala.io.Source
   */
 object Athanor {
 
-  lazy val config = ConfigFactory.load()
-  lazy val path = config.getString("app.path")
+  lazy val config: Config = ConfigFactory.load()
+  lazy val path: String = config.getString("app.path")
   lazy val athanor = new JAtanor
   lazy val handler = athanor.LoadProgram(program,"")
 
-  def fullPath(file:String) = {
+  def fullPath(file:String): String = {
     s"$path/scripts/$file"
   }
 
-  def program = fullPath("apply.kif")
+  def program: String = fullPath("apply.kif")
 
 
-  def testSentence = fullPath("sentence.json")
+  def testSentence: String = fullPath("sentence.json")
 
   def demoFile:String = {
     Source.fromFile(testSentence).getLines.mkString

@@ -1,25 +1,25 @@
 package au.edu.utscic.athanorserver.corenlp
 
-import java.io.Serializable
-
+import au.edu.utscic.athanorserver.data.RhetoricalTypes.ConstituentTree
 import edu.stanford.nlp.trees.Tree
 import org.json4s
-import org.json4s.NoTypeHints
+import org.json4s.{JValue, NoTypeHints}
 
 /**
   * Created by andrew@andrewresearch.net on 12/7/17.
   */
 object ConstituentTreeParser {
 
-  def parse(tree:Tree):String = {
+  def parse(tree:Tree):ConstituentTree = {
     val treeList = process(tree)
-    listToJsonString(treeList.asInstanceOf[List[Serializable]])
+    //listToJsonString(treeList.asInstanceOf[List[Serializable]])
+    treeList.asInstanceOf[ConstituentTree]
   }
 
   def process(tree:Tree):Any = {
     import scala.collection.JavaConverters._
     if(tree.numChildren()==0) {
-      tree.yieldWords().asScala.mkString(",")
+      tree.yieldWords().asScala.map(_.value()).mkString(",")
       //tree.taggedLabeledYield().asScala.toList.map(_.word())
     }
     else {
@@ -28,30 +28,13 @@ object ConstituentTreeParser {
     }
   }
 
-//  def makeJson(treeList:Any) =  {
-//    import org.json4s
-//    import org.json4s.NoTypeHints
-//    import org.json4s._
-//    import org.json4s.jackson.Serialization
-//    import org.json4s.jackson.Serialization._
-//    implicit val formats = Serialization.formats(NoTypeHints)
-//    Serialization.write(treeList.asInstanceOf[List[Any]])
-//  }
-//  def parseNlpTree(s: String):String = {
-//    val l = parseToList(s)
-//    val nl = if(l.head=="TOP") "ROOT" +: l.tail else l //Change TOP to ROOT for athanor
-//    listToJsonString(nl)
-//  }
-
-  //def parseToList(s:String) = this.parse(s, List())._2.head.asInstanceOf[List[Serializable]]
-
-  def listToJsonString(l:List[Serializable]):String =  {
+  def convertToJsonString(ct:ConstituentTree):String =  {
     import org.json4s.jackson.Serialization
     implicit val formats = Serialization.formats(NoTypeHints)
-    Serialization.write(l)
+    Serialization.write(ct)
   }
 
-  def jsonStringToJValue(s:String) = {
+  def jsonStringToJValue(s:String): JValue = {
     import json4s._
     import json4s.jackson.JsonMethods
     JsonMethods.parse(s)

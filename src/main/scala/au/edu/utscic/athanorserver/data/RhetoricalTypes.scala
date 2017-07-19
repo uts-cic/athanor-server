@@ -7,7 +7,7 @@ import scala.collection.immutable.ListMap
   */
 
 object RhetoricalTypes {
-  type ConstituentTree = String
+  type ConstituentTree = List[Serializable]
   type LexicalNodes = ListMap[Int,Node]
   type Dependencies = List[Dependency]
   type ParsedSentence = (LexicalNodes,ConstituentTree,Dependencies)

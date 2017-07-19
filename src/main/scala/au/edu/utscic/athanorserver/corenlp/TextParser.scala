@@ -1,13 +1,13 @@
 package au.edu.utscic.athanorserver.corenlp
 
-import edu.stanford.nlp.pipeline.{Annotation, StanfordCoreNLP}
 import java.util.Properties
 
 import au.edu.utscic.athanorserver.data.RhetoricalTypes.ParsedSentence
-import edu.stanford.nlp.ling.CoreLabel
 import edu.stanford.nlp.ling.CoreAnnotations._
+import edu.stanford.nlp.ling.CoreLabel
+import edu.stanford.nlp.pipeline.{Annotation, StanfordCoreNLP}
 import edu.stanford.nlp.semgraph.SemanticGraph
-import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.{BasicDependenciesAnnotation, EnhancedDependenciesAnnotation, EnhancedPlusPlusDependenciesAnnotation}
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation
 import edu.stanford.nlp.trees.Tree
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation
 
@@ -16,6 +16,7 @@ import scala.collection.JavaConverters._
 /**
   * Created by andrew@andrewresearch.net on 17/7/17.
   */
+//noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 object TextParser {
 
   def parse(text:String):List[ParsedSentence] = {

@@ -1,6 +1,7 @@
 package au.edu.utscic.athanorserver.server
 
 import akka.http.scaladsl.server.Directives.{as, complete, entity, extractUnmatchedPath, pathPrefix, post}
+import akka.http.scaladsl.server.Route
 import akka.util.ByteString
 import au.edu.utscic.athanorserver.message.Json
 
@@ -9,7 +10,7 @@ import au.edu.utscic.athanorserver.message.Json
   */
 trait AthanorApi extends GenericApi {
 
-  val textRoutes = pathPrefix("text") {
+  val textRoutes: Route = pathPrefix("text") {
     extractUnmatchedPath { param =>
       if (!param.isEmpty) {
         post {
@@ -29,7 +30,7 @@ trait AthanorApi extends GenericApi {
     }
   }
 
-  override val customRoutes = pathPrefix("analyse") {
+  override val customRoutes: Route = pathPrefix("analyse") {
     textRoutes
   }
 

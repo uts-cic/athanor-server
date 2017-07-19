@@ -7,9 +7,8 @@ import edu.stanford.nlp.ling.CoreLabel
 import edu.stanford.nlp.semgraph.SemanticGraph
 import edu.stanford.nlp.trees.Tree
 
-import scala.collection.immutable.ListMap
-
 import scala.collection.JavaConverters._
+import scala.collection.immutable.ListMap
 
 /**
   * Created by andrew@andrewresearch.net on 12/7/17.
@@ -25,7 +24,7 @@ object SentenceParser {
 
   def getNodes(tokens:List[CoreLabel]):LexicalNodes = {
 
-      val nodes = tokens.zipWithIndex.toSeq.map { case(token,i) =>
+      val nodes = tokens.zipWithIndex.map { case(token,i) =>
         val index = i+1
         val word = token.get(classOf[TextAnnotation])
         val lemma = token.get(classOf[LemmaAnnotation])
@@ -42,6 +41,12 @@ object SentenceParser {
   }
 
   def getDependencies(dependencies:SemanticGraph):Dependencies = {
-    List()
+    dependencies.edgeListSorted().asScala.toList.map { d =>
+      Dependency(
+        d.getRelation.toString,
+        d.getGovernor.backingLabel().index(),
+        d.getDependent.backingLabel().index()
+      )
+    }
   }
 }

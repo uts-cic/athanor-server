@@ -2,7 +2,7 @@ package au.edu.utscic.athanorserver.message
 
 import akka.util.ByteString
 import org.json4s.jackson.Serialization
-import org.json4s.{Extraction, JValue, NoTypeHints}
+import org.json4s.{Extraction, Formats, JValue, NoTypeHints}
 
 import scala.concurrent.Future
 
@@ -11,7 +11,9 @@ import scala.concurrent.Future
   */
 object Json {
   import scala.concurrent.ExecutionContext.Implicits.global
-  implicit val serialformats = Serialization.formats(NoTypeHints)
+  implicit val serialformats: AnyRef with Formats {
+
+  } = Serialization.formats(NoTypeHints)
 
   case class ByteStringAnalysis(byteStr:ByteString,analysisType:String)
   case class CorpusAnalysis(corpus:String,analysisType:String)

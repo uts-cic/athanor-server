@@ -2,13 +2,13 @@ package au.edu.utscic.athanorserver.corenlp
 
 import au.edu.utscic.athanorserver.data.RhetoricalTypes
 import au.edu.utscic.athanorserver.data.RhetoricalTypes._
-import edu.stanford.nlp.ling.CoreAnnotations.{LemmaAnnotation, PartOfSpeechAnnotation, TextAnnotation}
+import edu.stanford.nlp.ling.CoreAnnotations._
 import edu.stanford.nlp.ling.CoreLabel
 import edu.stanford.nlp.semgraph.SemanticGraph
 import edu.stanford.nlp.trees.Tree
 
 import scala.collection.JavaConverters._
-import scala.collection.immutable.ListMap
+import scala.collection.immutable.SortedMap
 
 /**
   * Created by andrew@andrewresearch.net on 12/7/17.
@@ -29,11 +29,14 @@ object SentenceParser {
         val word = token.get(classOf[TextAnnotation])
         val lemma = token.get(classOf[LemmaAnnotation])
         val pos = token.get(classOf[PartOfSpeechAnnotation])
-        //val ne = token.get(classOf[NamedEntityTagAnnotation])
-        (index,RhetoricalTypes.Node(index,pos,Some(word),Some(lemma)))
+        val ne = token.get(classOf[NamedEntityTagAnnotation])
+        val spk = token.get(classOf[SpeakerAnnotation])
+        val left = token.beginPosition()
+        val right = token.endPosition()
+        (index,RhetoricalTypes.Node(index,pos,Some(word),Some(lemma),Some(ne),Some(spk),Some(left),Some(right)))
       }
 
-    ListMap() ++ nodes
+    SortedMap[Int,Node]() ++ nodes
   }
 
   def getTree(constituentTree: Tree):ConstituentTree = {

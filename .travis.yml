@@ -5,4 +5,4 @@ jdk:
   - oraclejdk8
 
 install:
-  sudo apt-get install -qq libc6:i386
+  sudo apt-get install libc6-i386

@@ -9,6 +9,9 @@ organization := "au.edu.utscic"
 // ensure that JavaAppPackaging is enabled - disable for Travis CI
 //enablePlugins(JavaAppPackaging)
 
+coverageEnabled := true
+
+
 //Scala library versions
 val akkaVersion = "2.5.3"
 val akkaStreamVersion = "2.5.3"
@@ -53,3 +56,13 @@ libraryDependencies ++= Seq(
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/src/main/scala/root-doc.md")
 
 resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
+
+coverageMinimum := 70
+
+coverageFailOnMinimum := false
+
+coverageHighlighting := true
+
+publishArtifact in Test := false
+
+parallelExecution in Test := false

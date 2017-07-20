@@ -3,3 +3,6 @@ scala:
    - 2.12.0
 jdk:
   - oraclejdk8
+
+install:
+  sudo apt-get install -qq libc6:i386

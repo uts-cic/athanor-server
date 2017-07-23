@@ -9,6 +9,9 @@ organization := "au.edu.utscic"
 // ensure that JavaAppPackaging is enabled - disable for Travis CI
 //enablePlugins(JavaAppPackaging)
 
+coverageEnabled := true
+
+
 //Scala library versions
 val akkaVersion = "2.5.3"
 val akkaStreamVersion = "2.5.3"
@@ -22,6 +25,7 @@ val nlytxCommonsVersion = "0.1.1"
 
 //Java library versions
 val coreNlpVersion = "3.8.0"
+val jsonassertVersion = "1.5.0"
 
 //Akka
 libraryDependencies ++= Seq(
@@ -43,6 +47,7 @@ libraryDependencies ++= Seq(
   //  "com.typesafe" % "config" % "1.3.1",
   "org.json4s" %% "json4s-jackson" % json4sVersion,
   "de.heikoseeberger" %% "akka-http-json4s" % akkaHttpJson4sVersion,
+  "org.skyscreamer" % "jsonassert" % jsonassertVersion,
   "org.scalatest" %% "scalatest" % scalatestVersion % "test",
   "org.slf4j" % "jcl-over-slf4j" % slf4jVersion,
   "ch.qos.logback" % "logback-classic" % logbackVersion
@@ -51,3 +56,13 @@ libraryDependencies ++= Seq(
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/src/main/scala/root-doc.md")
 
 resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
+
+coverageMinimum := 70
+
+coverageFailOnMinimum := false
+
+coverageHighlighting := true
+
+publishArtifact in Test := false
+
+parallelExecution in Test := false

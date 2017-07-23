@@ -34,7 +34,7 @@ object TextAnalysisHandler {
     //noinspection SpellCheckingInspection
     //noinspection ScalaUnusedSymbol
     val donothing = bs
-    Athanor.process(Athanor.demoFile).mkString(",")
+    Athanor.analyseJson(Athanor.demoFile).mkString(",")
   }
 
   case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,String,NotUsed]) {

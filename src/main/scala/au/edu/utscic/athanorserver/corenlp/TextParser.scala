@@ -10,6 +10,7 @@ import edu.stanford.nlp.semgraph.SemanticGraph
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation
 import edu.stanford.nlp.trees.Tree
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation
+import edu.stanford.nlp.util.CoreMap
 
 import scala.collection.JavaConverters._
 
@@ -19,23 +20,33 @@ import scala.collection.JavaConverters._
 //noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 object TextParser {
 
-  def parse(text:String):List[ParsedSentence] = {
+  val pipeline:StanfordCoreNLP = {
     val props = new Properties
-    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") // ner, dcoref
-    val pipeline = new StanfordCoreNLP(props)
+    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") //ner dcoref
+    new StanfordCoreNLP(props)
+  }
+
+  def parse(text:String):List[ParsedSentence] = {
+    val sentences = annotateSentences(text)
+    parseSentences(sentences)
+  }
+
+  def annotateSentences(text:String):List[CoreMap] = {
     val document = new Annotation(text)
     pipeline.annotate(document)
+    document.get(classOf[SentencesAnnotation]).asScala.toList
+  }
 
-    val sentences = document.get(classOf[SentencesAnnotation]).asScala.toList
-
+  def parseSentences(sentences:List[CoreMap]):List[ParsedSentence] = {
     sentences.map { sentence =>
-      val tokens:List[CoreLabel] = sentence.get(classOf[TokensAnnotation]).asScala.toList
+      val tokens = getTokens(sentence)
       val tree:Tree = sentence.get(classOf[TreeAnnotation])
       val dependencies:SemanticGraph = sentence.get(classOf[EnhancedPlusPlusDependenciesAnnotation])
       SentenceParser.parse(tokens,tree,dependencies)
     }
-
   }
+
+  def getTokens(sentence:CoreMap):List[CoreLabel] = sentence.get(classOf[TokensAnnotation]).asScala.toList
 
   // This is the coreference link graph
   // Each chain stores a set of mentions that link to each other,

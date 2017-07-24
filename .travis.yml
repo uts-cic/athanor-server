@@ -1,5 +1,8 @@
 language: scala
 scala:
-   - 2.12.0
+   - 2.12.2
 jdk:
   - oraclejdk8
+
+install:
+  sudo apt-get install libc6-i386

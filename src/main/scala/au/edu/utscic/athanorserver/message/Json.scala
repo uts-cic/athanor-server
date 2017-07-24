@@ -20,7 +20,6 @@ object Json {
   case class Results(message:String,results:JValue)
 
 
-  def formatStringResults(results:String, message:String):Future[Results] = Future(Results(message,Extraction.decompose(results)))
 
   def formatResults[T](results:Future[T], message:String):Future[Results] = results.map { r =>
     Results(message, Extraction.decompose(r))

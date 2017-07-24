@@ -16,8 +16,8 @@ class CoreNlpSpec extends UnitSpec {
   lazy val annotatedSent = TextParser.annotateSentences(textA)
   lazy val parsedSents = TextParser.parseSentences(annotatedSent)
   lazy val tokens1 = TextParser.getTokens(annotatedSent(0))
-  lazy val constTree1 = annotatedSent(0).get(classOf[TreeAnnotation])
-  lazy val semGraph1 = annotatedSent(0).get(classOf[EnhancedPlusPlusDependenciesAnnotation])
+  lazy val constTree1 = Some(annotatedSent(0).get(classOf[TreeAnnotation]))
+  lazy val semGraph1 = Some(annotatedSent(0).get(classOf[EnhancedPlusPlusDependenciesAnnotation]))
 
 
   behavior of "TextParser"
@@ -88,7 +88,7 @@ class CoreNlpSpec extends UnitSpec {
   behavior of "ConstituentTreeParser"
 
   it should "process" in {
-    val res = ConstituentTreeParser.process(constTree1)
+    val res = ConstituentTreeParser.process(constTree1.get)
     assert(res==textAconstTree1)
   }
 

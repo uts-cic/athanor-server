@@ -10,10 +10,14 @@ import org.json4s.{JValue, NoTypeHints}
   */
 object ConstituentTreeParser {
 
-  def parse(tree:Tree):ConstituentTree = {
-    val treeList = process(tree)
-    //listToJsonString(treeList.asInstanceOf[List[Serializable]])
-    treeList.asInstanceOf[ConstituentTree]
+  def parse(tree:Option[Tree]):ConstituentTree = {
+    tree match {
+      case None => List()
+      case Some(t) => {
+        val treeList = process(t)
+        treeList.asInstanceOf[ConstituentTree]
+      }
+    }
   }
 
   def process(tree:Tree):Any = {

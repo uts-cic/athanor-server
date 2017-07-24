@@ -1,4 +1,5 @@
 [![https://img.shields.io/badge/license-GPLv3-blue.svg](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/uts-cic/athanor-server/blob/master/LICENSE)
+
 [![Build Status](https://travis-ci.org/uts-cic/athanor-server.svg?branch=master)](https://travis-ci.org/uts-cic/athanor-server)
 [![Coverage Status](https://coveralls.io/repos/github/uts-cic/athanor-server/badge.svg?branch=master)](https://coveralls.io/github/uts-cic/athanor-server?branch=master)
 

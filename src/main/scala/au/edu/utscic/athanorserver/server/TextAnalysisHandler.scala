@@ -12,7 +12,7 @@ import org.json4s.NoTypeHints
 import org.json4s.jackson.Serialization
 
 import scala.concurrent.Future
-
+import scala.Serializable
 /**
   * Created by andrew@andrewresearch.net on 20/2/17.
   */
@@ -29,26 +29,23 @@ object TextAnalysisHandler {
       case _ =>
         throw UnknownAnalysisType("Unknown analysis type")
     }
-    val pipelineResults = TextPipeline(msg.byteStr,pipeline).run
+    val pipelineResults = Source.single(msg.byteStr) via this.process runWith(Sink.head[List[List[String]]]) //TextPipeline(msg.byteStr,pipeline).run
     Json.formatResults(pipelineResults,"Text Analysis Results")
   }
 
-  val process:Flow[ByteString,String,NotUsed] = Flow[ByteString].map { bs =>
+  val process:Flow[ByteString,List[List[String]],NotUsed] = Flow[ByteString].map { bs =>
     val inputText = bs.utf8String
     val start = System.currentTimeMillis()
     val parsedSentences = TextParser.parse(inputText)
     val mid = System.currentTimeMillis()
     val nlpTime = (mid-start)
     val results = parsedSentences.map { ps =>
-      val jsonString:String = Athanor.parsedSentenceToJsonString(ps)
-      Athanor.analyseJson(jsonString)
+      Athanor.analyseParsedSentence(ps)
     }
     val end = System.currentTimeMillis()
     val athTime = (end-mid)
     log.info("Process times for {} characters - coreNlp: {} athanor: {}",inputText.length,nlpTime,athTime)
-    implicit val formats = Serialization.formats(NoTypeHints)
-    import Serialization.write
-    write(results)
+    results
   }
 
   val demo:Flow[ByteString,String,NotUsed] = Flow[ByteString].map { bs =>
@@ -59,9 +56,9 @@ object TextAnalysisHandler {
     Athanor.analyseJson(Athanor.demoFile).mkString(",")
   }
 
-  case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,String,NotUsed]) {
+  case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,List[List[String]],NotUsed]) {
     import StreamsContext.materializer
     val source: Source[ByteString, NotUsed] = Source.single(inputStr)
-    def run: Future[String] = source via flow runWith Sink.head[String]
+    def run = source via flow runWith Sink.head[List[List[String]]]
   }
 }

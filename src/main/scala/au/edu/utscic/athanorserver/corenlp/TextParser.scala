@@ -20,15 +20,18 @@ import scala.collection.JavaConverters._
 //noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 object TextParser {
 
+  val pipeline:StanfordCoreNLP = {
+    val props = new Properties
+    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") //ner dcoref
+    new StanfordCoreNLP(props)
+  }
+
   def parse(text:String):List[ParsedSentence] = {
     val sentences = annotateSentences(text)
     parseSentences(sentences)
   }
 
   def annotateSentences(text:String):List[CoreMap] = {
-    val props = new Properties
-    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse") // dcoref
-    val pipeline = new StanfordCoreNLP(props)
     val document = new Annotation(text)
     pipeline.annotate(document)
     document.get(classOf[SentencesAnnotation]).asScala.toList

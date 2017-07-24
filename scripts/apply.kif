@@ -170,7 +170,7 @@ function traverse(vector v, treemapi nodes, vector deps,self surf,synode r) {
 function Apply(string js) {
     lock("apply");
     js=js.trim();
-    printlnerr(_threadhandle(),js[:80]+"...");
+    //printlnerr(_threadhandle(),js[:80]+"...");
     vector  v=js;
 
     //the tokens...
@@ -237,7 +237,7 @@ function Apply(string js) {
     //we return the result as a JSON map structure
     svector vres;
     vres=m.keys();
-    printlnerr("Within athanor:",m,vres);
+    //printlnerr("Within athanor:",m,vres);
     return(vres);
 }
 

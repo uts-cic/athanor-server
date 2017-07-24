@@ -15,7 +15,7 @@ import scala.collection.immutable.SortedMap
   */
 object SentenceParser {
 
-  def parse(tokens:List[CoreLabel],constituentTree:Tree,dependencies:SemanticGraph):ParsedSentence = {
+  def parse(tokens:List[CoreLabel],constituentTree:Option[Tree],dependencies:Option[SemanticGraph]):ParsedSentence = {
     val ln:LexicalNodes = getNodes(tokens)
     val ct:ConstituentTree = getTree(constituentTree)
     val dp:Dependencies = getDependencies(dependencies)
@@ -45,17 +45,22 @@ object SentenceParser {
     SortedMap[Int,Node](0 -> Node(0,"ROOT",None,None,None,None,None,None)) ++ nodes
   }
 
-  def getTree(constituentTree: Tree):ConstituentTree = {
-      ConstituentTreeParser.parse(constituentTree)
+  def getTree(constituentTree: Option[Tree]):ConstituentTree = {
+    ConstituentTreeParser.parse(constituentTree)
   }
 
-  def getDependencies(dependencies:SemanticGraph):Dependencies = {
-    dependencies.edgeListSorted().asScala.toList.map { d =>
-      Dependency(
-        d.getRelation.toString,
-        d.getGovernor.backingLabel().index(),
-        d.getDependent.backingLabel().index()
-      )
+  def getDependencies(dependencies:Option[SemanticGraph]):Dependencies = {
+    dependencies match {
+      case None => List()
+      case Some(deps) => {
+        deps.edgeListSorted().asScala.toList.map { d =>
+          Dependency(
+            d.getRelation.toString,
+            d.getGovernor.backingLabel().index(),
+            d.getDependent.backingLabel().index()
+          )
+        }
+      }
     }
   }
 }

@@ -22,7 +22,7 @@ object TextParser {
 
   val pipeline:StanfordCoreNLP = {
     val props = new Properties
-    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") //ner dcoref
+    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") //parse ner dcoref
     new StanfordCoreNLP(props)
   }
 
@@ -40,10 +40,15 @@ object TextParser {
   def parseSentences(sentences:List[CoreMap]):List[ParsedSentence] = {
     sentences.map { sentence =>
       val tokens = getTokens(sentence)
-      val tree:Tree = sentence.get(classOf[TreeAnnotation])
-      val dependencies:SemanticGraph = sentence.get(classOf[EnhancedPlusPlusDependenciesAnnotation])
+      val tree:Option[Tree] = getAsOption(sentence.get(classOf[TreeAnnotation]))
+      val dependencies:Option[SemanticGraph] = getAsOption(sentence.get(classOf[EnhancedPlusPlusDependenciesAnnotation]))
       SentenceParser.parse(tokens,tree,dependencies)
     }
+  }
+
+  def getAsOption[T](c:Any) = c match {
+    case null => None
+    case t:T => Some(t)
   }
 
   def getTokens(sentence:CoreMap):List[CoreLabel] = sentence.get(classOf[TokensAnnotation]).asScala.toList

@@ -22,6 +22,12 @@ object SentenceParser {
     (ln,ct,dp)
   }
 
+  private def getOpt[T](a:Any):Option[T] = a match {
+    case s:T => Some(s)
+    case null => None
+    case _ => None
+  }
+
   def getNodes(tokens:List[CoreLabel]):LexicalNodes = {
 
       val nodes = tokens.zipWithIndex.map { case(token,i) =>
@@ -33,10 +39,10 @@ object SentenceParser {
         val spk = token.get(classOf[SpeakerAnnotation])
         val left = token.beginPosition()
         val right = token.endPosition()
-        (index,RhetoricalTypes.Node(index,pos,Some(word),Some(lemma),Some(ne),Some(spk),Some(left),Some(right)))
+        (index,RhetoricalTypes.Node(index,pos,getOpt[String](word),getOpt[String](lemma),getOpt[String](ne),getOpt[String](spk),getOpt[Int](left),getOpt[Int](right)))
       }
 
-    SortedMap[Int,Node]() ++ nodes
+    SortedMap[Int,Node](0 -> Node(0,"ROOT",None,None,None,None,None,None)) ++ nodes
   }
 
   def getTree(constituentTree: Tree):ConstituentTree = {

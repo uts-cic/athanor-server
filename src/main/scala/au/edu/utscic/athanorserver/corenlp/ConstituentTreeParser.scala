@@ -20,7 +20,6 @@ object ConstituentTreeParser {
     import scala.collection.JavaConverters._
     if(tree.numChildren()==0) {
       tree.yieldWords().asScala.map(_.value()).mkString(",")
-      //tree.taggedLabeledYield().asScala.toList.map(_.word())
     }
     else {
       tree.label().toString +:

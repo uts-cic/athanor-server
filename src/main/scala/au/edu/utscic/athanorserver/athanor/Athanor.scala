@@ -44,7 +44,7 @@ object Athanor {
   def parsedSentenceToJsonString(parsedSent:ParsedSentence):String = {
     implicit val formats = Serialization.formats(NoTypeHints)
     val l = write(parsedSent._1)
-    val c = write(parsedSent._2)
+    val c = write(parsedSent._2).replaceAll("""(\"(?=[0-9]))|((?<=[0-9])\")""","") //remove quotes around Ints for json
     val d = write(parsedSent._3)
     s"[$l,$c,$d]"
   }

@@ -23,7 +23,10 @@ object ConstituentTreeParser {
   def process(tree:Tree):Any = {
     import scala.collection.JavaConverters._
     if(tree.numChildren()==0) {
-      tree.yieldWords().asScala.map(_.value()).mkString(",")
+      //val words = tree.yieldWords().asScala.map(_.value()).mkString(",")
+      val num = tree.labels.asScala.flatMap(_.toString.split("-")).last
+      //println(s"WORD: $words NUM: $num")
+      num
     }
     else {
       tree.label().toString +:

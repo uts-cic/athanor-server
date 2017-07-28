@@ -23,16 +23,16 @@ class AthanorSpec extends UnitSpec {
 //  }
 
   it should "parseJsonSentence" in {
-    val ps = Athanor.parseJsonSentence(TestData.jsonString)
-    assert(ps==TestData.parsedSentence)
+    val ps = Athanor.parseJsonSentence(TestData.athJsonString)
+    assert(ps==TestData.athParsedSentence)
   }
 
   it should "parsedSentenceToJsonString" in {
     import org.json4s._
     import org.json4s.jackson.JsonMethods._
     //Get strings
-    val expected = TestData.jsonString
-    val actual = Athanor.parsedSentenceToJsonString(TestData.parsedSentence)
+    val expected = TestData.athJsonString
+    val actual = Athanor.parsedSentenceToJsonString(TestData.athParsedSentence)
     //Check that the strings can actually be parsed into json
     val expJson = parse(expected)
     val actJson = parse(actual)
@@ -51,14 +51,15 @@ class AthanorSpec extends UnitSpec {
   }
 
   it should "analyseParsedSentence" in {
-    val result = Athanor.analyseParsedSentence(TestData.parsedSentence)
+    val result = Athanor.analyseParsedSentence(TestData.athParsedSentence)
     assert(result.toSet==rhetoricalMoves.toSet) //Order doesn't matter
   }
 
   it should "analyseJsonSentence" in {
-    val result = Athanor.analyseJson(TestData.jsonString)
+    val result = Athanor.analyseJson(TestData.athJsonString)
     assert(result.toSet==rhetoricalMoves.toSet) //Order doesn't matter
   }
+
 
 
 

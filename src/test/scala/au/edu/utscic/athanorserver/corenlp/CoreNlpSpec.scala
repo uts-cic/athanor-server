@@ -1,6 +1,7 @@
 package au.edu.utscic.athanorserver.corenlp
 
 import au.edu.utscic.athanorserver.UnitSpec
+import au.edu.utscic.athanorserver.athanor.Athanor
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations._
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation
 
@@ -44,7 +45,8 @@ class CoreNlpSpec extends UnitSpec {
     val ps1s = ps1._2(1).asInstanceOf[List[Any]]
     assert(ps1s.head=="S") //Tree has starting sentence
     assert(ps1s.length==4) //S + 3 top level phrases
-    assert(ps1._3.size==10) //Correct number of dependencies
+    assert(ps1._3.size==11) //Correct number of dependencies
+    assert(ps1._3.head.name=="root") //Dependencies has root
     //Sentence 2
     assert(ps2._1.size==9) //Correct number of nodes
     assert(ps2._1.map(_._1).toSeq==Seq(0,1,2,3,4,5,6,7,8)) //Is sorted
@@ -52,7 +54,8 @@ class CoreNlpSpec extends UnitSpec {
     val ps2s = ps2._2(1).asInstanceOf[List[Any]]
     assert(ps2s.head=="S") //Tree has starting sentence
     assert(ps2s.length==4) //S + 3 top level phrases
-    assert(ps2._3.size==7) //Correct number of dependencies
+    assert(ps2._3.size==8) //Correct number of dependencies
+    assert(ps1._3.head.name=="root") //Dependencies has root
   }
 
   it should "parse" in {
@@ -60,6 +63,10 @@ class CoreNlpSpec extends UnitSpec {
     assert(ps.length==2)
     assert(ps(0)==textAparsed1)
     assert(ps(1)==textAparsed2)
+    //Athanor sentence test
+    val demoPS = TextParser.parse(athSentence)
+    val json = Athanor.parsedSentenceToJsonString(demoPS.head)
+    assert(json==athJsonString)
   }
 
   behavior of "SentenceParser"

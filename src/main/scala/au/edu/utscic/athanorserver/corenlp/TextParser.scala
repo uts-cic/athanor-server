@@ -22,7 +22,7 @@ object TextParser {
 
   val pipeline:StanfordCoreNLP = {
     val props = new Properties
-    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse") //parse ner dcoref
+    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse") //parse ner dcoref
     new StanfordCoreNLP(props)
   }
 

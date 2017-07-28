@@ -53,6 +53,7 @@ object SentenceParser {
     dependencies match {
       case None => List()
       case Some(deps) => {
+        Dependency("root",0,deps.getFirstRoot.index()) +:
         deps.edgeListSorted().asScala.toList.map { d =>
           Dependency(
             d.getRelation.toString,

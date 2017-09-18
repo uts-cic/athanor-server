@@ -24,7 +24,7 @@ object TextAnalysisHandler {
     log.info("Analysing text...")
     val pipeline = msg.analysisType match {
       case "rhetorical" => process
-      case "demo" => demo
+      //case "demo" => demo
   //  case "xip" => getAnalysis[DocumentXip]("xipAnalyser",msg,sender)
       case _ =>
         throw UnknownAnalysisType("Unknown analysis type")
@@ -48,13 +48,13 @@ object TextAnalysisHandler {
     results
   }
 
-  val demo:Flow[ByteString,String,NotUsed] = Flow[ByteString].map { bs =>
-    //noinspection ScalaUnusedSymbol
-    //noinspection SpellCheckingInspection
-    //noinspection ScalaUnusedSymbol
-    val donothing = bs
-    Athanor.analyseJson(Athanor.demoFile).mkString(",")
-  }
+//  val demo:Flow[ByteString,String,NotUsed] = Flow[ByteString].map { bs =>
+//    //noinspection ScalaUnusedSymbol
+//    //noinspection SpellCheckingInspection
+//    //noinspection ScalaUnusedSymbol
+//    val donothing = bs
+//    Athanor.analyseJson(Athanor.demoFile).mkString(",")
+//  }
 
   case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,List[List[String]],NotUsed]) {
     import StreamsContext.materializer

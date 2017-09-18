@@ -1,9 +1,0 @@
-feast_event : +
-period : +
-tempexpr : +
-wh : +
-passive : +
-VERB : +
-NOUN : +
-ADJ : +
-ok : +

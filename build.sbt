@@ -1,16 +1,7 @@
 name := "athanorserver"
-version := "0.2"
+version := "0.5"
 scalaVersion := "2.12.2"
 organization := "au.edu.utscic"
-
-// RUN sbt dependencyUpdates to check dependency version
-
-// RUN sbt universal:packageZipTarball to create a tar package for upload to server
-// ensure that JavaAppPackaging is enabled - disable for Travis CI
-//enablePlugins(JavaAppPackaging)
-
-//coverageEnabled := false
-
 
 //Scala library versions
 val akkaVersion = "2.5.3"
@@ -57,20 +48,25 @@ scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value
 
 resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
 
+// RUN sbt dependencyUpdates to check dependency version
+
+// RUN sbt universal:packageZipTarball to create a tar package for upload to server
+// ensure that JavaAppPackaging is enabled - disable for Travis CI
+//enablePlugins(JavaAppPackaging)
+
+//coverageEnabled := false
+
 //coverageMinimum := 70
-//
 //coverageFailOnMinimum := false
-//
 //coverageHighlighting := true
-//
 //publishArtifact in Test := false
-//
 //parallelExecution in Test := false
 
+import NativePackagerHelper._
 //Enable this only for local builds - disabled for Travis
 enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
 dockerExposedPorts := Seq(8083) // sbt docker:publishLocal
-
+mappings in Universal ++= directory("grammar")
 javaOptions in Universal ++= Seq(
   // -J params will be added as jvm parameters
   "-J-Xmx2048m",

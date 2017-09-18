@@ -1,3 +1,0 @@
-PresPerf : +
-Norm : +
-Grrefl : +

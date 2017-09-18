@@ -1,16 +1,7 @@
-name := "athanorserver-server"
-version := "0.1"
+name := "athanorserver"
+version := "0.5"
 scalaVersion := "2.12.2"
 organization := "au.edu.utscic"
-
-// RUN sbt dependencyUpdates to check dependency version
-
-// RUN sbt universal:packageZipTarball to create a tar package for upload to server
-// ensure that JavaAppPackaging is enabled - disable for Travis CI
-//enablePlugins(JavaAppPackaging)
-
-coverageEnabled := true
-
 
 //Scala library versions
 val akkaVersion = "2.5.3"
@@ -57,12 +48,34 @@ scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value
 
 resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
 
-coverageMinimum := 70
+// RUN sbt dependencyUpdates to check dependency version
 
-coverageFailOnMinimum := false
+// RUN sbt universal:packageZipTarball to create a tar package for upload to server
+// ensure that JavaAppPackaging is enabled - disable for Travis CI
+//enablePlugins(JavaAppPackaging)
 
-coverageHighlighting := true
+//coverageEnabled := false
 
-publishArtifact in Test := false
+//coverageMinimum := 70
+//coverageFailOnMinimum := false
+//coverageHighlighting := true
+//publishArtifact in Test := false
+//parallelExecution in Test := false
 
-parallelExecution in Test := false
+import NativePackagerHelper._
+//Enable this only for local builds - disabled for Travis
+enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
+dockerExposedPorts := Seq(8083) // sbt docker:publishLocal
+mappings in Universal ++= directory("grammar")
+javaOptions in Universal ++= Seq(
+  // -J params will be added as jvm parameters
+  "-J-Xmx2048m",
+  "-J-Xms512m"
+
+  // others will be added as app parameters
+  //  "-Dproperty=true",
+  //  "-port=8080",
+
+  // you can access any build setting/task here
+  //s"-version=${version.value}"
+)

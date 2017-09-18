@@ -17,16 +17,21 @@ import scala.io.Source
   */
 object Athanor {
 
-  lazy val config: Config = ConfigFactory.load()
-  lazy val path: String = config.getString("app.path")
+  //lazy val config: Config = ConfigFactory.load()
+  //lazy val path: String = config.getString("app.path")
+
   lazy val athanor = new JAtanor
   lazy val handler = athanor.LoadProgram(program,"")
   lazy val program: String = fullPath("apply.kif")
-  lazy val testSentence: String = fullPath("sentence.json")
-  lazy val demoFile:String = Source.fromFile(testSentence).getLines.mkString
+  //lazy val testSentence: String = fullPath("sentence.json")
+  //lazy val demoFile:String = Source.fromFile(testSentence).getLines.mkString
 
   def fullPath(file:String): String = {
-    s"$path/scripts/$file"
+    //s"$path/grammar/$file"
+    //val path = getClass.getResource(s"/grammar/$file").getPath
+    val path = s"/opt/docker/grammar/$file"
+    println(s"Full path: $path")
+    path
   }
 
 

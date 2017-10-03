@@ -1,17 +1,17 @@
 name := "athanorserver"
-version := "0.5"
-scalaVersion := "2.12.2"
+version := "0.6"
+scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
 //Scala library versions
-val akkaVersion = "2.5.3"
-val akkaStreamVersion = "2.5.3"
-val akkaHttpVersion = "10.0.9"
-val akkaHttpJson4sVersion = "1.17.0"
-val json4sVersion = "3.5.2"
+val akkaVersion = "2.5.6"
+val akkaStreamVersion = "2.5.6"
+val akkaHttpVersion = "10.0.10"
+val akkaHttpJson4sVersion = "1.18.0"
+val json4sVersion = "3.5.3"
 val slf4jVersion = "1.7.25"
 val logbackVersion = "1.2.3"
-val scalatestVersion = "3.0.3"
+val scalatestVersion = "3.0.4"
 val nlytxCommonsVersion = "0.1.1"
 
 //Java library versions

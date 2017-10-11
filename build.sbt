@@ -1,17 +1,17 @@
 name := "athanorserver"
-version := "0.5"
-scalaVersion := "2.12.2"
+version := "0.8"
+scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
 //Scala library versions
-val akkaVersion = "2.5.3"
-val akkaStreamVersion = "2.5.3"
-val akkaHttpVersion = "10.0.9"
-val akkaHttpJson4sVersion = "1.17.0"
-val json4sVersion = "3.5.2"
+val akkaVersion = "2.5.6"
+val akkaStreamVersion = "2.5.6"
+val akkaHttpVersion = "10.0.10"
+val akkaHttpJson4sVersion = "1.18.0"
+val json4sVersion = "3.5.3"
 val slf4jVersion = "1.7.25"
 val logbackVersion = "1.2.3"
-val scalatestVersion = "3.0.3"
+val scalatestVersion = "3.0.4"
 val nlytxCommonsVersion = "0.1.1"
 
 //Java library versions
@@ -41,7 +41,7 @@ libraryDependencies ++= Seq(
   "org.skyscreamer" % "jsonassert" % jsonassertVersion,
   "org.scalatest" %% "scalatest" % scalatestVersion % "test",
   "org.slf4j" % "jcl-over-slf4j" % slf4jVersion,
-  "ch.qos.logback" % "logback-classic" % logbackVersion
+  "ch.qos.logback" % "logback-classic" % logbackVersion % Runtime
 )
 
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/src/main/scala/root-doc.md")
@@ -62,7 +62,7 @@ resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
 //publishArtifact in Test := false
 //parallelExecution in Test := false
 
-import NativePackagerHelper._
+import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
 //Enable this only for local builds - disabled for Travis
 enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
 dockerExposedPorts := Seq(8083) // sbt docker:publishLocal

@@ -2,15 +2,12 @@ package au.edu.utscic.athanorserver.athanor
 
 import au.edu.utscic.athanorserver.data.RhetoricalImplicits
 import au.edu.utscic.athanorserver.data.RhetoricalTypes._
-import com.typesafe.config.{Config, ConfigFactory}
 import com.xerox.jatanor.JAtanor
 import org.json4s.JsonAST.JValue
 import org.json4s.NoTypeHints
 import org.json4s.jackson.JsonMethods.parse
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
-
-import scala.io.Source
 
 /**
   * Created by andrew@andrewresearch.net on 28/6/17.
@@ -23,13 +20,15 @@ object Athanor {
   lazy val athanor = new JAtanor
   lazy val handler = athanor.LoadProgram(program,"")
   lazy val program: String = fullPath("apply.kif")
+  val dockerPath = "/opt/docker/grammar/"
+  val localPath = "/Users/andrew/Documents/development/_projects/CIC-Current/athanor-server/grammar/"
   //lazy val testSentence: String = fullPath("sentence.json")
   //lazy val demoFile:String = Source.fromFile(testSentence).getLines.mkString
 
   def fullPath(file:String): String = {
-    //s"$path/grammar/$file"
-    //val path = getClass.getResource(s"/grammar/$file").getPath
-    val path = s"/opt/docker/grammar/$file"
+    //TODO check current path and select appropriate local or docker!
+    val path = dockerPath + file
+    //val path = localPath + file
     println(s"Full path: $path")
     path
   }

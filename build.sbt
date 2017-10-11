@@ -1,5 +1,5 @@
 name := "athanorserver"
-version := "0.6"
+version := "0.8"
 scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
@@ -41,7 +41,7 @@ libraryDependencies ++= Seq(
   "org.skyscreamer" % "jsonassert" % jsonassertVersion,
   "org.scalatest" %% "scalatest" % scalatestVersion % "test",
   "org.slf4j" % "jcl-over-slf4j" % slf4jVersion,
-  "ch.qos.logback" % "logback-classic" % logbackVersion
+  "ch.qos.logback" % "logback-classic" % logbackVersion % Runtime
 )
 
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/src/main/scala/root-doc.md")
@@ -62,7 +62,7 @@ resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
 //publishArtifact in Test := false
 //parallelExecution in Test := false
 
-import NativePackagerHelper._
+import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
 //Enable this only for local builds - disabled for Travis
 enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
 dockerExposedPorts := Seq(8083) // sbt docker:publishLocal

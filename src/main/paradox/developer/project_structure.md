@@ -1,17 +1,13 @@
 ## Project Structure
 
-Although TAP is a Play project, the project structure is that of a Maven/sbt project
-and does not follow the Play default project structure.
+The project structure is that of a Maven/sbt project.
 
-The build.sbt file indicates that we are using an alternative project structure to Play.
+For more details on this structure, see the [sbt reference manual](http://www.scala-sbt.org/0.13/docs/)
 
-        disablePlugins(PlayLayoutPlugin)
-        PlayKeys.playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value
+Refer to [Getting Started with sbt - Directory Structure section](http://www.scala-sbt.org/0.13/docs/Directories.html) 
 
-For more details, see the "Default SBT Layout" section in the "Anatomy of a Play Application"
-chapter in the Play 2.6 Documentation:
 
-        [play-project-anatomy](https://playframework.com/documentation/2.6.x/Anatomy)
+
 
 
 

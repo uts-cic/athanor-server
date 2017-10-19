@@ -1,14 +1,14 @@
-#### Product Dependencies
+## Product Dependencies
 
-The following products are required to build and run TAP, and to potentially
-help you contribute to the TAP project.
-They are basically the tools required to run an SBT play application.
+The following products are required to build and run Athanor-Server, and to potentially
+help you contribute to the project.
+They are basically the tools required to run an SBT application.
 Other dependencies are also specified in build.sbt and will be automatically
 downloaded during the first build.
 
 Many of the tools/products will be downloaded during the build as build.sbt dependencies
 or indirectly by other products.
-Perhaps you want to **start with cloning and building TAP, then refer to the list in
+Perhaps you want to **start with cloning and building Athanor-Server, then refer to the list in
 this section in response to errors to see what you might be missing**.
 
 1. Git
@@ -26,35 +26,35 @@ this section in response to errors to see what you might be missing**.
     on our system already, we need to download it first.
     Even if sbt is already installed, we may need to use a different level of sbt to do the build.
 
-    Once you downloaded the code, position in the ~/tap directory, and issue the following command :
+    Once you downloaded the code, position in the ~/athanor-server directory, and issue the following command :
 
         sbt about
 
-    in the ~/tap directory.
+    in the ~/athanor-server directory.
     You should get the following output :
 
-        [info] This is sbt 0.13.16
-        [info] The current project is {file:~/tap/}tap 3.0.4or
-        [info] The current project is built against Scala 2.12.3
 
-    If the sbt version is different from than 0.13.16, wait until the first compile is done, and issue
+       [info] Set current project to athanorserver (in build file:~/athanor-server/)
+       [info] This is sbt 0.13.15
+       [info] The current project is built against Scala 2.12.2
+
+    If the sbt version is different from than 0.13.15, wait until the first compile is done, and issue
     the check again as the sbt build should download the correct version for you.
-    If not, download the the 0.13.16 version that is used in the project from the [sbt website](http://www.scala-sbt.org/)
+    If not, download the the 0.13.15 version that is used in the project from the 
+    [sbt website](http://www.scala-sbt.org/)
 
 3. Scala
 
-    The Scala compiler version used to compile the code is 2.12.3.
+    The Scala compiler version used to compile the code is 2.12.2.
     This should match the run-time Scala version as Scala run-time is not
     backward compatible.
     This should be taken care of by the build.sbt file on the first compile.
 
-    You can issue the following command to check your Scala version:
+    You can check the scala version used in the compile in the output of the sbt about command. 
+    
+    You can also see the version of scala installed on your system by issuing:
 
         scala -version
-
-    This is the expected output:
-
-        Scala code runner version 2.12.3 -- Copyright 2002-2017, LAMP/EPFL and Lightbend, Inc.:
 
 4. Java SE Development Kit (JDK) and Java run-time (JRE)
 
@@ -79,13 +79,4 @@ this section in response to errors to see what you might be missing**.
     You should provide enough memory for the JDK and JRE to build and run this project.
     The following values are suggested :
 
-       -Xmx2048M -Xss1M
-
-5. The Play Framework
-
-    This can be downloaded from the [Play Framework website](https://playframework.com).
-
-    Press on the Download 2.6.6 button and follow the appropriate instructions for your
-    operating system.
-
-
+       -Xmx2048M

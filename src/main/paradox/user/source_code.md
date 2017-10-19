@@ -1,4 +1,4 @@
-## Getting a local copy of athanor-server
+## Getting the Athanor-server source
 
 Clone the github repository to your local repository copy on your PC, or
 download the zip file if you just want to build the project, and have no intention

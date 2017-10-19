@@ -1,14 +1,14 @@
-#### Building TAP
+## Building Athanor-Server
 
-1. Move to the directory where you placed the tap product. Assuming it is
-in the home directory, you should see a build.sbt file containing instruction
-on how the build is done, as well as this README.md file:
+1. Move to the directory where you placed the Athanor-Server product. 
+Assuming it is in the home directory, you should see a build.sbt file containing instructions
+on how the build is done:
 
-        cd ~/tap
+        cd ~/athanor-server
 
 2. Compile the product.
 
-     The first compile will be very slow as dependencies have to be fetched and placed
+     The first compile may be slow as dependencies have to be fetched and placed
      in the ~/.ivy2 directory.
 
          sbt compile
@@ -16,22 +16,18 @@ on how the build is done, as well as this README.md file:
      The following compile warnings seem to be safe to ignore, but ensure the
      last compile ends with [SUCCESS] :
 
-        com.typesafe.akka:akka-stream_2.12:2.5.6 is selected over {2.5.4, 2.5.3, 2.4.19}
-        com.typesafe.akka:akka-actor_2.12:2.5.6 is selected over {2.5.4, 2.4.19}
-        com.google.guava:guava:22.0 is selected over 19.0
-        ...srcc/main/scala/handlers/GraphQlHandler.scala:42: match may not be exhaustive.
-        ...
-        there were 8 feature warnings; re-run with -feature for details
-        two warnings found^[[0m
-        Total time: 11 s, completed Oct 7, 2017 12:39:37 PM^[[0m
-
-
-      If you get the following compile errors, it means the jars that TAP relies are not
-      being accessed from the lib directory.
-      Ensure the missing jars are installed, as explained in the
-      "Getting a local copy of TAP" section.
-
-        import cc.factorie.app.nlp._
-        ~/tap/src/main/scala/au.edu.utscic.tap/nlp/factorie/Annotator.scala:28: not found: value DocumentAnnotatorPipeline
-
-
+         [warn] There may be incompatibilities among your library dependencies.
+         [warn] Here are some of the libraries that were evicted:
+         [warn] 	* com.typesafe.akka:akka-stream-testkit_2.12:2.4.19 -> 2.5.3
+         [warn] 	* com.typesafe.akka:akka-stream_2.12:2.4.19 -> 2.5.3
+         [warn] Run 'evicted' to see detailed eviction warnings
+         [info] Compiling 15 Scala sources to /home/joseph/athanor-server/target/scala-2.12/classes...
+         [warn] ~/athanor-server/src/main/scala/au/edu/utscic/athanorserver/corenlp/SentenceParser.scala:26: abstract type pattern T is unchecked since it is eliminated by erasure
+         [warn]     case s:T => Some(s)
+         [warn]            ^
+         [warn] ~/athanor-server/src/main/scala/au/edu/utscic/athanorserver/corenlp/TextParser.scala:51: abstract type pattern T is unchecked since it is eliminated by erasure
+         [warn]     case t:T => Some(t)
+         [warn]            ^
+         [warn] there was one feature warning; re-run with -feature for details
+         [warn] three warnings found
+         [success] Total time: 7 s, completed Oct 19, 2017 12:13:14 PM

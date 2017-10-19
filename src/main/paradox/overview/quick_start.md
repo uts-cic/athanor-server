@@ -1,12 +1,15 @@
 ## Quick Start
 
-1. The steps to getting the tap-api running locally...
+The steps to getting the Athanor-Server running locally are:
 
-    - Get a copy of the project source code
-    - Download sbt and/or the play framework if they are not already installed on your system
-    - Run the project using sbt run or Play
+- Get a copy of the project source code
+- Download sbt if it is not already installed on your system
+- Run the project using sbt run 
+- Connect  to ```http://localhost:8083/v2/health``` 
+  This should return json:
 
-2. Connecting ...
-
-    Connect to localhost:9000 via the browser
-
+```json
+{
+  "message": "ok"
+}
+```

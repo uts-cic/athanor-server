@@ -48,6 +48,30 @@ scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value
 
 resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")
 
+//Documentation - run ;paradox;copyDocs
+enablePlugins(ParadoxPlugin) //Generate documentation with Paradox
+paradoxTheme := Some(builtinParadoxTheme("generic"))
+paradoxProperties in Compile ++= Map(
+  "github.base_url" -> s"https://github.com/uts-cic/athanor-server",
+  "scaladoc.api.base_url" -> s"https://uts-cic.github.io/athanor-server"
+)
+//Task for copying to root level docs folder (for GitHub pages)
+val copyDocsTask = TaskKey[Unit]("copyDocs","copies paradox docs to /docs directory")
+copyDocsTask := {
+  import java.io.File
+  
+  val docSourceFileName = "target/paradox/site"
+  if (! new java.io.File(docSourceFileName).exists)
+  {
+      println("Error: Cannot locate documentation source directory:{}", docSourceFileName)
+      System.exit(1)
+  }
+  val docSource = new File(docSourceFileName)
+ 
+  val docDest = new File("docs")
+  IO.copyDirectory(docSource,docDest,overwrite=true,preserveLastModified=true)
+}
+
 // RUN sbt dependencyUpdates to check dependency version
 
 // RUN sbt universal:packageZipTarball to create a tar package for upload to server

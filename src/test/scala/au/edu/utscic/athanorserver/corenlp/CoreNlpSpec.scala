@@ -66,6 +66,7 @@ class CoreNlpSpec extends UnitSpec {
     //Athanor sentence test
     val demoPS = TextParser.parse(athSentence)
     val json = Athanor.parsedSentenceToJsonString(demoPS.head)
+    println(json)
     assert(json==athJsonString)
   }
 

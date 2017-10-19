@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/uts-cic/athanor-server.svg?branch=master)](https://travis-ci.org/uts-cic/athanor-server)
 [![Coverage Status](https://coveralls.io/repos/github/uts-cic/athanor-server/badge.svg?branch=master)](https://coveralls.io/github/uts-cic/athanor-server?branch=master)
 
-**IMPORTANT: OPEN SOURCE APPROVAL PENDING. ALL RIGHTS RESERVED BY ORIGINAL OWNERS. PLEASE OPEN AN ISSUE BEFORE FORKING THIS CODE OR CONTACT [@andrewresearch](http://GitHub.com/andrewresearch)**
+
 
 # athanor-server
 
@@ -11,4 +11,4 @@ This is a REST-API web server for Athanor, a rhetorical parser. The server requi
 
 # Documentation
 
-See the current [docs](./docs/overview/index.html).
+See the current [docs](https://uts-cic.github.io/athanor-server/).

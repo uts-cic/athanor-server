@@ -67,7 +67,7 @@ class CoreNlpSpec extends UnitSpec {
     val demoPS = TextParser.parse(athSentence)
     val json = Athanor.parsedSentenceToJsonString(demoPS.head)
     println(json)
-    assert(json==athJsonString)
+    assert(json.toSet==athJsonString.toSet)     // Order does not matter
   }
 
   behavior of "SentenceParser"

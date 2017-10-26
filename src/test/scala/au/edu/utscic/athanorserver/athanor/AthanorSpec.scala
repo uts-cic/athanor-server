@@ -22,6 +22,11 @@ class AthanorSpec extends UnitSpec {
 //    assert(Athanor.fullPath(fileName)==s"$localpath/dummyFile")
 //  }
 
+  it should "have a grammar parser" in {
+    val loaded = Athanor.isGrammarParserLoaded
+    assert(loaded == true)
+  }
+
   it should "parseJsonSentence" in {
     val ps = Athanor.parseJsonSentence(TestData.athJsonString)
     assert(ps==TestData.athParsedSentence)

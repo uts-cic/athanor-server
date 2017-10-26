@@ -27,8 +27,8 @@ object Athanor {
 
   def fullPath(file:String): String = {
     //TODO check current path and select appropriate local or docker!
-    //val path = dockerPath + file
-    val path = localPath + file
+    val path = dockerPath + file
+    //val path = localPath + file
     println(s"Full path: $path")
     path
   }

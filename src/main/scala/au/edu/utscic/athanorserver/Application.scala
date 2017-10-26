@@ -12,7 +12,7 @@ import au.edu.utscic.athanorserver.server.Server
 object Application extends App {
 
   log.info("Checking grammar path")
-  val parserLoaded = Athanor.isGrammarParserLoaded()
+  val parserLoaded = Athanor.isGrammarParserLoaded
   if (parserLoaded == false) {
     log.error("Error: Failed to load Grammar Parser")
     log.info("Please See instructions on tailoring the path to the Grammar Parser")

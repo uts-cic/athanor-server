@@ -23,7 +23,7 @@ class AthanorSpec extends UnitSpec {
 //  }
 
   it should "have a grammar parser" in {
-    val loaded = Athanor.isGrammarParserLoaded();
+    val loaded = Athanor.isGrammarParserLoaded
     assert(loaded == true)
   }
 

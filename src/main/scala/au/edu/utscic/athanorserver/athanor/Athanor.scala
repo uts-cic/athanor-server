@@ -66,10 +66,8 @@ object Athanor {
 // be passed back.
 //
   val localGrammarHandler = athanor.LoadProgram(localGrammarFullPath,"")
-  val localGrammarLoaded = if (localGrammarHandler >= 0)
-                             true
-                           else
-                             false
+  val localGrammarLoaded = (localGrammarHandler >= 0)
+
   log.info("LocalGrammarLoaded={}", localGrammarLoaded)
 
 //
@@ -96,26 +94,13 @@ object Athanor {
                                // Attempt the docker grammar path load
                                athanor.LoadProgram(dockerGrammarFullPath, "")
 
-  val dockerGrammarLoaded = if (dockerGrammarHandler >= 0)
-                              true
-                            else
-                              false
+  val dockerGrammarLoaded = (dockerGrammarHandler >= 0)
+
   log.info("dockerGrammarLoaded={}", dockerGrammarLoaded)
 
-  val handler = if (localGrammarHandler >= 0)
-                  localGrammarHandler
-                else
-                  dockerGrammarHandler
+  val handler = if (localGrammarHandler >= 0) localGrammarHandler else dockerGrammarHandler
 
-  val parserLoaded = localGrammarLoaded || dockerGrammarLoaded
-
-  //
-  // Users of this object can call this to
-  // decide if they want to continue
-  //
-  def isGrammarParserLoaded(): Boolean = {
-    parserLoaded
-  }
+  def isGrammarParserLoaded: Boolean = localGrammarLoaded || dockerGrammarLoaded
 
   def parseJsonSentence(sent:String):ParsedSentence = {
 

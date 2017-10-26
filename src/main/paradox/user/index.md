@@ -3,7 +3,8 @@
 @@@ index
 * [Product Dependencies](product_dependencies.md)
 * [Getting the Source Code](source_code.md)
-* [Building TAP](build_product.md)
-* [Running TAP](run_product.md)
+* [Building Athanor-Server](build_product.md)
+* [Running Athanor-Server](run_product.md)
+* [Grammar Path](grammar_path.md)
 
 @@@

@@ -8,5 +8,6 @@
 @@@
 
 ---
+### Athanor Server Docs
 
 @scaladoc[TAP API (Scaladoc)](api.index)

@@ -21,7 +21,7 @@ trait AthanorApi extends GenericApi {
               val analysisType = param.dropChars(1).head.toString
               //println("analysisType - {}",analysisType)
               val analysisMsg = Json.ByteStringAnalysis(str,analysisType)
-              complete(TextAnalysisHandler.analyse(analysisMsg))
+              complete(TextAnalysisHandler.analyse(analysisMsg)) //TODO Need to take a prammater here that is used by Athanor.class to select the correct grammar
             }
           }
         }

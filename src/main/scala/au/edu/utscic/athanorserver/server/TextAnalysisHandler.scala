@@ -8,11 +8,8 @@ import au.edu.utscic.athanorserver.athanor.Athanor
 import au.edu.utscic.athanorserver.corenlp.TextParser
 import au.edu.utscic.athanorserver.message.Exception.UnknownAnalysisType
 import au.edu.utscic.athanorserver.message.Json
-import org.json4s.NoTypeHints
-import org.json4s.jackson.Serialization
 
 import scala.concurrent.Future
-import scala.Serializable
 /**
   * Created by andrew@andrewresearch.net on 20/2/17.
   */
@@ -23,7 +20,7 @@ object TextAnalysisHandler {
   def analyse(msg:Json.ByteStringAnalysis):Future[Json.Results] = {
     log.info("Analysing text...")
     val pipeline = msg.analysisType match {
-      case "rhetorical" => process
+      case "rhetorical" => process //TODO Need to handle rhetorical?grammar=[analytic,reflective,...]
       //case "demo" => demo
   //  case "xip" => getAnalysis[DocumentXip]("xipAnalyser",msg,sender)
       case _ =>

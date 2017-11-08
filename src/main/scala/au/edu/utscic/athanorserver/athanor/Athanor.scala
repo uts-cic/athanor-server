@@ -10,12 +10,8 @@ import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
 
 // Imports used to read property file
-import java.io.{File, FileInputStream}
-import java.util.Properties
-import com.typesafe.config.{Config, ConfigFactory}
 
 // Imports used to join paths
-import java.nio.file.Path
 import java.nio.file.Paths
 
 // Imports used for logging
@@ -34,7 +30,7 @@ object Athanor {
   val propertyFileName = "athanor-server.properties"
 //
 // This is the program that we are trying to load
-  val programName = "apply.kif"
+  val programName = "apply.kif" //TODO Need to be able to load different programs here - perhaps this should be a function
 
 //
 // Get the local grammar path.

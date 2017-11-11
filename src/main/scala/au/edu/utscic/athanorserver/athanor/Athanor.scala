@@ -22,7 +22,9 @@ import au.edu.utscic.athanorserver.StreamsContext.log
   */
 object Athanor {
 
-  lazy val athanor = new JAtanor
+  val athanor = new JAtanor
+  //val check = athanor.LoadProgram("/Users/admin/projects/athanor-server/grammar/apply.kif","")
+  //log.warning(s"Check: $check")
 
 //
 // This property file can be used to set grammar path
@@ -42,7 +44,7 @@ object Athanor {
 //
 
   val homeDir = System.getProperty("user.home");
-  val defaultLocalGrammarPath = homeDir + "/athanor/grammar/"
+  val defaultLocalGrammarPath = homeDir + "/athanor-server/grammar/"
   val localGrammarPath = GrammarPath.getValue(defaultLocalGrammarPath,
                GrammarPath.getProperty(propertyFileName,"grammar.localPath" ),
                GrammarPath.getEnv("ATHANOR_SERVER_LOCAL_GRAMMAR_PATH"))
@@ -62,6 +64,7 @@ object Athanor {
 // be passed back.
 //
   val localGrammarHandler = athanor.LoadProgram(localGrammarFullPath,"")
+  log.debug(s"sgh: $localGrammarHandler")
   val localGrammarLoaded = (localGrammarHandler >= 0)
 
   log.info("LocalGrammarLoaded={}", localGrammarLoaded)

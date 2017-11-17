@@ -1,0 +1,15 @@
+akka {
+  loglevel = "DEBUG"
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  logging-filter = "akka.event.slf4j.Slf4jLoggingFilter"
+  logger-startup-timeout=30s
+
+  http.server {
+    idle-timeout = 180 s
+    request-timeout = 20 s
+  }
+}
+
+app {
+  grammar.path = "/my/path/to/athanor-server/grammar"
+}

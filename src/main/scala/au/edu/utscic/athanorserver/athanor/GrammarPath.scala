@@ -1,84 +1,50 @@
 package au.edu.utscic.athanorserver.athanor
 
-// Imports used to read the properties file
-import java.io.{File, FileInputStream}
-import java.util.Properties
+import java.io.File
+
+import com.typesafe.config.ConfigFactory
+
+import scala.util.Try
 
 // Imports used for logging
-import au.edu.utscic.athanorserver.StreamsContext.log
+//import au.edu.utscic.athanorserver.StreamsContext.log
 
 /*
 * Created by jh on 25/10/2017
 */
 object GrammarPath {
 
-  //
-  // Precedence :
-  // 1) Environment specification
-  // 2) Property file
-  // 3) Hardcoded default value
-  // Assumes defaultPath is always specified by caller.
-  //
-  def getValue(defaultPath: String,
-               propertyPath: Option[String],
-               envPath: Option[String]): String = {
-    envPath match {
-      case Some(e) => e
-      case None =>
-        propertyPath match {
-          case Some(x) => x
-          case None => defaultPath
-        }
-    }
+
+  // Get the local grammar path.
+  // This is set to a default value of /home_dir/athanor/grammar but can be manipulated
+  // by the grammar.localPath value in the property file or
+  // the ATHANOR_SERVER_LOCAL_GRAMMAR_PATH environmental variable.
+  // The precedence (High to Low) is:
+  // 1) Environment variable 2) Property value 3) Hardcoded value
+
+
+  private val environmentPath:Option[String] = for {
+    ep <- Try(sys.env("GRAMMAR_PATH")).toOption
+    vp <- validatePath(ep)
+  } yield vp
+
+  private val propertyPath:Option[String] = for {
+    pp <- Try(ConfigFactory.load.getString("app.grammar.path")).toOption
+    vp <- validatePath(pp)
+  } yield vp
+
+  private val localPath:Option[String] = validatePath(System.getProperty("user.home") + "/athanor-server/grammar")
+
+  private val dockerPath:Option[String] = validatePath("/opt/docker/grammar")
+
+  val currentPath:String = {
+    environmentPath.getOrElse(propertyPath.getOrElse(localPath.getOrElse(dockerPath.getOrElse(""))))
+  }
+
+  def validatePath(path:String):Option[String] = {
+    val file = new File(path)
+    if (file.exists && file.isDirectory) Some(path) else None
   }
 
 
-
-  //
-  // Return the value of a property in the properties file corresponding to a key
-  // None if file not defined/could not be loaded  or if key is not found
-  //
-  def getProperty(propertyFileName: String, propertyKey: String): Option[String] = {
-
-    def getPropertiesModule(): Option[java.io.InputStream] = {
-      try {
-        Some(getClass().getClassLoader().getResourceAsStream(propertyFileName))
-      }
-      catch {
-        case e: Exception => {
-          log.info("Could not load properties module")
-          None
-        }
-      }
-    }
-
-    getPropertiesModule() match {
-      case Some(x) => {
-        try {
-          val properties = new Properties
-          properties.load(x)
-          x.close()
-          val property = properties.getProperty(propertyKey)
-          if (property == null) None else Some(property)
-        }
-        catch {
-          case e: Exception => None
-        }
-      }
-      case None => None
-    }
-  }
-
-  //
-  // Return value to corresponding to a given environment variable key.
-  // Return None if key is not defined.
-  //
-  def getEnv(key: String): Option[String] = {
-    try {
-      Option(sys.env(key))
-    }
-    catch {
-      case e:Exception => None
-    }
-  }
 }

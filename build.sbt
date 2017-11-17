@@ -1,5 +1,5 @@
 name := "athanorserver"
-version := "0.8"
+version := "0.9.0"
 scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
@@ -34,7 +34,7 @@ libraryDependencies ++= Seq(
 
 //General
 libraryDependencies ++= Seq(
-  "au.edu.utscic" % "athanor" % "0.9.0",
+  "au.edu.utscic" % "athanor" % "0.9.1m",
   "org.json4s" %% "json4s-jackson" % json4sVersion,
   "de.heikoseeberger" %% "akka-http-json4s" % akkaHttpJson4sVersion,
   "org.skyscreamer" % "jsonassert" % jsonassertVersion,

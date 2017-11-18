@@ -1,5 +1,5 @@
 name := "athanorserver"
-version := "0.9.0"
+version := "0.9.2"
 scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
@@ -15,6 +15,7 @@ val scalatestVersion = "3.0.4"
 val nlytxCommonsVersion = "0.1.1"
 
 //Java library versions
+val athanorVersion = "0.9.2"
 val coreNlpVersion = "3.8.0"
 val jsonassertVersion = "1.5.0"
 
@@ -34,7 +35,7 @@ libraryDependencies ++= Seq(
 
 //General
 libraryDependencies ++= Seq(
-  "au.edu.utscic" % "athanor" % "0.9.1m",
+  "au.edu.utscic" % "athanor" % athanorVersion,
   "org.json4s" %% "json4s-jackson" % json4sVersion,
   "de.heikoseeberger" %% "akka-http-json4s" % akkaHttpJson4sVersion,
   "org.skyscreamer" % "jsonassert" % jsonassertVersion,

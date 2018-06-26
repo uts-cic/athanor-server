@@ -1,5 +1,5 @@
 name := "athanor-server"
-version := "0.9.3"
+version := "0.9.4"
 scalaVersion := "2.12.6"
 organization := "au.edu.utscic"
 
@@ -87,20 +87,20 @@ resolvers += Resolver.bintrayRepo("nlytx", "athanor")
 //publishArtifact in Test := false
 //parallelExecution in Test := false
 
-//import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
-////Enable this only for local builds - disabled for Travis
-//enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
-//dockerExposedPorts := Seq(8083) // sbt docker:publishLocal
-//mappings in Universal ++= directory("grammar")
-//javaOptions in Universal ++= Seq(
-//  // -J params will be added as jvm parameters
-//  "-J-Xmx2048m",
-//  "-J-Xms512m"
+import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
+//Enable this only for local builds - disabled for Travis
+enablePlugins(JavaAppPackaging) // sbt universal:packageZipTarball
+dockerExposedPorts := Seq(8083) // sbt docker:publishLocal
+mappings in Universal ++= directory("grammar")
+javaOptions in Universal ++= Seq(
+  // -J params will be added as jvm parameters
+  "-J-Xmx6144m",
+  "-J-Xms4096m"
 
-  // others will be added as app parameters
-  //  "-Dproperty=true",
-  //  "-port=8080",
+//   others will be added as app parameters
+//    "-Dproperty=true",
+//    "-port=8080",
 
-  // you can access any build setting/task here
+   //you can access any build setting/task here
   //s"-version=${version.value}"
-//)
+)
